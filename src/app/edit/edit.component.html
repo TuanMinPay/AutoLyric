@@ -1,0 +1,35 @@
+<div class="container mt-5">
+    <h3>Bài đang chọn: <span class="song-title">{{titleSelected}}</span></h3>
+    <div class="title-step-3">
+        <h5>Ấn nút <strong class="text-danger">TAP</strong> hoặc phím <strong class="text-danger">Ctrl</strong> sau mỗi câu hát của ca sĩ.</h5>
+        <h5><strong class="text-danger">QUAN TRỌNG:</strong> Vui lòng ấn nút <strong class="text-danger">TAP</strong> hoặc phím <strong class="text-danger">CTRL</strong> để bắt đầu</h5>
+    </div>
+    <div class="lyric-area">
+        <div class="sync-lyric">
+            <ul class="container">
+                <li *ngFor="let item of arrLyric; let i = index;" [attr.data-index]="i">{{item}}</li>
+            </ul>
+        </div>
+        <div class="player-control">
+            <audio controls #audioElement id="player">
+          <source id="audioSource">
+          Your browser does not support the audio element.
+        </audio>
+            <div class="speed-control">
+                <label for="speed">Preview speed</label>
+                <select name="speed" id="select-control">
+            <option value="2.0">2.0</option>
+            <option value="1.5">1.5</option>
+            <option value="1.0" selected>1.0</option>
+            <option value="0.8">0.8</option>
+            <option value="0.5">0.5</option>
+          </select>
+            </div>
+        </div>
+        <div class="btn-control">
+            <div class="btn-submit">
+                <button class="btn btn-danger" [disabled]="!nextStepCheck" (click)="nextStep()">Tiếp theo</button>
+            </div>
+        </div>
+    </div>
+</div>

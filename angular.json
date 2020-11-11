@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "AutoLyric"
+    }
+  },
+  "defaultProject": "AutoLyric",
+  "cli": {
+    "analytics": "24360d70-36c6-4d8f-b615-7b83d705ff1c"
+  }
 }

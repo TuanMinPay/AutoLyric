@@ -1,0 +1,15 @@
+<div class="main">
+    <h2>Chọn file nhạc (mp3/flac)</h2>
+    <div class="file-drop-area {{dragOver ? 'is-active' : ''}}" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+        <span class="fake-btn">Chọn nhạc</span>
+        <span class="file-msg">{{(fileName == null) ? 'hoặc kéo file nhạc vào đây' : fileName}}</span>
+        <input class="file-input" type="file" accept=".mp3, .flac,.wav" (change)="uploadFileSelected($event)">
+        <div class="loading-upload" *ngIf="isLoading">
+            <img src="/assets/images/loading.gif" width="100">
+        </div>
+    </div>
+
+    <div class="next">
+        <button class="btn btn-danger" [disabled]="!next" (click)="nextStep()">Next Step <i class="fa fa-angle-double-right"></i></button>
+    </div>
+</div>

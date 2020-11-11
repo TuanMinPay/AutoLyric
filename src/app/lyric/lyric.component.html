@@ -1,0 +1,8 @@
+<div class="container mt-5">
+    <h1>Paste lyric vào ô bên dưới</h1>
+    <div class="form-group">
+        <label for="lyric">Mỗi câu phân biệt bằng mỗi dòng</label>
+        <textarea name="lyric" id="lyric" rows="15" class="form-input" #lyric></textarea>
+    </div>
+    <button class="btn btn-danger" (click)="saveLyric(lyric.value)">Tiếp tục</button>
+</div>

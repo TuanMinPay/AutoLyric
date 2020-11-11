@@ -1,0 +1,68 @@
+.sync-lyric {
+    height: 300px;
+    overflow: auto;
+    border: 2px dashed rgba(255, 255, 255, .4);
+    width: 100%;
+    border-radius: 3px
+}
+
+.sync-lyric::-webkit-scrollbar {
+    width: 3px
+}
+
+.sync-lyric::-webkit-scrollbar-track {
+    background: 0 0
+}
+
+.sync-lyric::-webkit-scrollbar-thumb {
+    background: #888
+}
+
+.sync-lyric .container {
+    list-style: none;
+    font-size: 24px;
+    margin: 0;
+    padding: 20px;
+    width: 100%
+}
+
+.player-control {
+    width: 100%;
+    padding: 25px 0
+}
+
+.player-control #player {
+    width: 100%;
+    background-color: #f1f3f4;
+    border-radius: 3px
+}
+
+.player-control .speed-control {
+    padding: 10px 0
+}
+
+.player-control .speed-control #select-control {
+    width: 100px;
+    height: 40px;
+    outline: 0;
+    border: none;
+    border-radius: 3px;
+    padding: 5px;
+    margin-left: 10px;
+    color: #000
+}
+
+.btn-control {
+    text-align: center;
+    margin-top: -50px;
+    margin-bottom: 50px
+}
+
+.break-line {
+    margin-bottom: 50px
+}
+
+.line_done {
+    color: #FF6347;
+    font-weight: bold;
+}
