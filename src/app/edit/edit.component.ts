@@ -33,15 +33,14 @@ export class EditComponent implements OnInit {
     return (minutes < 10) ? "0" + minutes : minutes + ":" + (seconds < 10) ? "0" + seconds : seconds;
   }
 
-  @HostListener('document:keydown', ['$event'])
-  onKeyDown(event: KeyboardEvent) {
+  tap() {
     const that = this;
-    if (event.getModifierState('Control') && !that.firstClick) {
+    if (!that.firstClick) {
       that.firstClick = true;
       that.audio.play();
       that.pushOutput("00:00", "0:00:00.000", that.arrLyric[that.currentIndex]);
       that.currentIndex = that.currentIndex + 1;
-    } else if (event.getModifierState('Control') && that.currentIndex <= (that.arrLyric.length - 1)) {
+    } else if (that.currentIndex <= (that.arrLyric.length - 1)) {
       document.querySelector(`li[data-index='${that.currentIndex - 1}']`).classList.add('line_done');
       var hour = `0${Math.floor(that.audio.currentTime / 3600)}`;
       var minutes = `0${Math.floor(that.audio.currentTime / 60)}`;
@@ -52,12 +51,35 @@ export class EditComponent implements OnInit {
       that.pushOutput(dur, _dur, that.arrLyric[that.currentIndex]);
       document.querySelector(`li[data-index='${that.currentIndex}']`).scrollIntoView({ behavior: 'smooth', block: 'center' });
       that.currentIndex = that.currentIndex + 1;
-    } else if (event.getModifierState('Control') && that.currentIndex > (that.arrLyric.length - 1)) {
+    } else if (that.currentIndex > (that.arrLyric.length - 1)) {
       document.querySelector(`li[data-index='${that.currentIndex - 1}']`).classList.add('line_done');
       that.audio.pause();
       that.nextStepCheck = true;
       localStorage.setItem('sync_lyrics', JSON.stringify(that.output));
     }
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent) {
+    if (event.getModifierState('Control')) {
+      this.tap();
+    }
+  }
+
+  undo() {
+    const that = this;
+    if (that.currentIndex <= (that.arrLyric.length - 1)) {
+      document.querySelector(`li[data-index='${that.currentIndex - 2}']`).classList.remove('line_done');
+      that.output.pop();
+      that.currentIndex = that.currentIndex - 1;
+      console.log(1, that.output);
+    } else if (that.currentIndex > (that.arrLyric.length - 1)) {
+      document.querySelector(`li[data-index='${that.currentIndex - 1}']`).classList.remove('line_done');
+      that.output.pop();
+      that.currentIndex = that.currentIndex - 1;
+      document.querySelector(`li[data-index='${that.currentIndex - 1}']`).classList.remove('line_done');
+    }
+    that.nextStepCheck = false;
   }
 
   nextStep() {

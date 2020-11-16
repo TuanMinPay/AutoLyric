@@ -28,6 +28,8 @@
         </div>
         <div class="btn-control">
             <div class="btn-submit">
+                <button class="btn btn-danger" [disabled]="output.length &lt;= 1" (click)="undo()">Undo</button>
+                <button class="btn btn-danger btn-lg mr-2 ml-2 btn-tap" (click)="tap()">TAP</button>
                 <button class="btn btn-danger" [disabled]="!nextStepCheck" (click)="nextStep()">Tiếp theo</button>
             </div>
         </div>
