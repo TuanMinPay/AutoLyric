@@ -54,7 +54,7 @@ export class UploadComponent implements OnInit {
       localStorage.setItem('title', filename.replace(/\.(?:mp3|wav|flac)$/gm, ''));
       var formData = new FormData();
       formData.append("file", file);
-      axios.post('http://sv-lyric.apidayroi.com/api/upload/audio', formData).then(function (response) {
+      axios.post('http://localhost:8888/api/upload/audio', formData).then(function (response) {
         that.fileName = filename;
         localStorage.setItem('audio_url', response.data);
         that.next = true;

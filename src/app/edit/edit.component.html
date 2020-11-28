@@ -16,14 +16,14 @@
           Your browser does not support the audio element.
         </audio>
             <div class="speed-control">
-                <label for="speed">Preview speed</label>
-                <select name="speed" id="select-control">
-            <option value="2.0">2.0</option>
-            <option value="1.5">1.5</option>
-            <option value="1.0" selected>1.0</option>
-            <option value="0.8">0.8</option>
-            <option value="0.5">0.5</option>
-          </select>
+                <label for="speed">Tốc độ phát</label>
+                <select name="speed" id="select-control" #speed (change)="setSpeed(speed.value)">
+                    <option value="2.0">2.0</option>
+                    <option value="1.5">1.5</option>
+                    <option value="1.0" selected>1.0</option>
+                    <option value="0.8">0.8</option>
+                    <option value="0.5">0.5</option>
+                </select>
             </div>
         </div>
         <div class="btn-control">

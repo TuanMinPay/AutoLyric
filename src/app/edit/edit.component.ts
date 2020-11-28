@@ -20,11 +20,12 @@ export class EditComponent implements OnInit {
   currentIndex = 0;
   nextStepCheck = false;
 
-  pushOutput(second, time, lyric) {
+  pushOutput(second, time, lyric, timestamp) {
     this.output.push({
       second,
       time,
-      lyric
+      lyric,
+      timestamp
     });
   }
 
@@ -38,7 +39,7 @@ export class EditComponent implements OnInit {
     if (!that.firstClick) {
       that.firstClick = true;
       that.audio.play();
-      that.pushOutput("00:00", "0:00:00.000", that.arrLyric[that.currentIndex]);
+      that.pushOutput("00:00", "0:00:00.000", that.arrLyric[that.currentIndex], "0");
       that.currentIndex = that.currentIndex + 1;
     } else if (that.currentIndex <= (that.arrLyric.length - 1)) {
       document.querySelector(`li[data-index='${that.currentIndex - 1}']`).classList.add('line_done');
@@ -48,7 +49,7 @@ export class EditComponent implements OnInit {
       var milliseconds = that.audio.currentTime.toString().substr(-3);
       var dur = `${minutes.substr(-2)}:${seconds.substr(-2)}`;
       var _dur = `${hour.substr(-2)}:${minutes.substr(-2)}:${seconds.substr(-2)}.${milliseconds}`;
-      that.pushOutput(dur, _dur, that.arrLyric[that.currentIndex]);
+      that.pushOutput(dur, _dur, that.arrLyric[that.currentIndex], that.audio.currentTime);
       document.querySelector(`li[data-index='${that.currentIndex}']`).scrollIntoView({ behavior: 'smooth', block: 'center' });
       that.currentIndex = that.currentIndex + 1;
     } else if (that.currentIndex > (that.arrLyric.length - 1)) {
@@ -68,10 +69,13 @@ export class EditComponent implements OnInit {
 
   undo() {
     const that = this;
+
+    that.audio.pause();
     if (that.currentIndex <= (that.arrLyric.length - 1)) {
       document.querySelector(`li[data-index='${that.currentIndex - 2}']`).classList.remove('line_done');
-      that.output.pop();
+      let obj = that.output.pop();
       that.currentIndex = that.currentIndex - 1;
+      that.audio.currentTime = obj.timestamp;
       console.log(1, that.output);
     } else if (that.currentIndex > (that.arrLyric.length - 1)) {
       document.querySelector(`li[data-index='${that.currentIndex - 1}']`).classList.remove('line_done');
@@ -84,6 +88,10 @@ export class EditComponent implements OnInit {
 
   nextStep() {
     window.location.href = '/export';
+  }
+
+  setSpeed(speed) {
+    this.audio.playbackRate = speed;
   }
 
   ngOnInit(): void {
