@@ -47,13 +47,13 @@ export class ExportComponent implements OnInit {
     that.syncLyrics.map((l, index) => {
       if (index == 0) {
         that.sbv = `${l.time},${that.syncLyrics[index + 1].time}\n${l.lyric}`;
-        that.srt = `1\n${l.time} --> ${that.syncLyrics[index + 1].time}\n${l.lyric}`;
+        that.srt = `1\n${l.time.replace(".", ",")} --> ${that.syncLyrics[index + 1].time.replace(".", ",")}\n${l.lyric}`;
       } else if (index == (that.syncLyrics.length - 1)) {
         that.sbv = `${that.sbv}\n\n${l.time},${l.time}\n${l.lyric}`;
-        that.srt = `${that.srt}\n\n${index + 1}\n${l.time} --> ${l.time}\n${l.lyric}`;
+        that.srt = `${that.srt}\n\n${index + 1}\n${l.time.replace(".", ",")} --> ${l.time.replace(".", ",")}\n${l.lyric}`;
       } else {
         that.sbv = `${that.sbv}\n\n${l.time},${that.syncLyrics[index + 1].time}\n${l.lyric}`;
-        that.srt = `${that.srt}\n\n${index + 1}\n${l.time} --> ${that.syncLyrics[index + 1].time}\n${l.lyric}`;
+        that.srt = `${that.srt}\n\n${index + 1}\n${l.time.replace(".", ",")} --> ${that.syncLyrics[index + 1].time.replace(".", ",")}\n${l.lyric}`;
       }
     });
   }

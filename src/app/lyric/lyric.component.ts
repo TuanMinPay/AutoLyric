@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -8,7 +9,9 @@ import Swal from 'sweetalert2';
 })
 export class LyricComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   saveLyric(lyric) {
     if (!lyric) {
@@ -33,7 +36,7 @@ export class LyricComponent implements OnInit {
       });
       lyric = lyric.filter(l => l);
       localStorage.setItem('lyrics', JSON.stringify(lyric));
-      window.location.href = '/edit'
+      this.router.navigate(['/edit']);
     }
   }
 

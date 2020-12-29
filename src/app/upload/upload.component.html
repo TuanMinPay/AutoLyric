@@ -10,6 +10,6 @@
     </div>
 
     <div class="next">
-        <button class="btn btn-danger" [disabled]="!next" (click)="nextStep()">Next Step <i class="fa fa-angle-double-right"></i></button>
+        <a [routerLink]="['lyric']" class="btn btn-danger {{next ? '' : 'disabled'}}">Next Step <i class="fa fa-angle-double-right"></i></a>
     </div>
 </div>

@@ -5,3 +5,8 @@ body {
     background: linear-gradient(to right, #0fb8ad, #2cb5e8)!important;
     color: #fff;
 }
+
+a.disabled {
+    pointer-events: none;
+    cursor: default;
+}

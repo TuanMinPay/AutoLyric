@@ -36,10 +36,6 @@ export class UploadComponent implements OnInit {
 
   next: boolean = false;
 
-  nextStep() {
-    window.location.href = '/lyric';
-  }
-
   uploadFileSelected(file) {
     this.uploadMp3(file.target.files[0]);
   }
@@ -52,22 +48,26 @@ export class UploadComponent implements OnInit {
     that.isLoading = true;
     if (this.checkFileValid(filename) != null) {
       localStorage.setItem('title', filename.replace(/\.(?:mp3|wav|flac)$/gm, ''));
-      var formData = new FormData();
-      formData.append("file", file);
-      axios.post('http://localhost:8888/api/upload/audio', formData).then(function (response) {
-        that.fileName = filename;
-        localStorage.setItem('audio_url', response.data);
-        that.next = true;
-        that.isLoading = false;
-      }).catch(function (error) {
-        that.isLoading = false;
-        Swal.fire({
-          icon: 'error',
-          title: 'Something went wrong',
-          text: 'Oops...'
-        });
-        console.log(error);
-      });
+      // var formData = new FormData();
+      // formData.append("file", file);
+      that.fileName = filename;
+      localStorage.setItem('audio_url', window.URL.createObjectURL(file));
+      that.next = true;
+      that.isLoading = false;
+      // axios.post('http://localhost:8888/api/upload/audio', formData).then(function (response) {
+      //   that.fileName = filename;
+      //   localStorage.setItem('audio_url', response.data);
+      //   that.next = true;
+      //   that.isLoading = false;
+      // }).catch(function (error) {
+      //   that.isLoading = false;
+      //   Swal.fire({
+      //     icon: 'error',
+      //     title: 'Something went wrong',
+      //     text: 'Oops...'
+      //   });
+      //   console.log(error);
+      // });
     } else {
       Swal.fire({
         icon: 'error',

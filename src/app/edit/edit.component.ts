@@ -1,4 +1,5 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit',
@@ -12,7 +13,7 @@ export class EditComponent implements OnInit {
   @ViewChild('audioElement', { static: false }) public _audioRef: ElementRef;
   private audio: HTMLMediaElement;
   firstClick = false;
-  constructor() {
+  constructor(private router: Router) {
   }
 
   output = [];
@@ -42,6 +43,7 @@ export class EditComponent implements OnInit {
       that.pushOutput("00:00", "0:00:00.000", that.arrLyric[that.currentIndex], "0");
       that.currentIndex = that.currentIndex + 1;
     } else if (that.currentIndex <= (that.arrLyric.length - 1)) {
+      that.audio.play();
       document.querySelector(`li[data-index='${that.currentIndex - 1}']`).classList.add('line_done');
       var hour = `0${Math.floor(that.audio.currentTime / 3600)}`;
       var minutes = `0${Math.floor(that.audio.currentTime / 60)}`;
@@ -58,6 +60,8 @@ export class EditComponent implements OnInit {
       that.nextStepCheck = true;
       localStorage.setItem('sync_lyrics', JSON.stringify(that.output));
     }
+    console.log(222, that.output);
+    
   }
 
   @HostListener('document:keydown', ['$event'])
@@ -69,13 +73,13 @@ export class EditComponent implements OnInit {
 
   undo() {
     const that = this;
-
     that.audio.pause();
     if (that.currentIndex <= (that.arrLyric.length - 1)) {
       document.querySelector(`li[data-index='${that.currentIndex - 2}']`).classList.remove('line_done');
-      let obj = that.output.pop();
+      let obj = that.output[that.currentIndex - 2];
       that.currentIndex = that.currentIndex - 1;
       that.audio.currentTime = obj.timestamp;
+      that.output.pop();
       console.log(1, that.output);
     } else if (that.currentIndex > (that.arrLyric.length - 1)) {
       document.querySelector(`li[data-index='${that.currentIndex - 1}']`).classList.remove('line_done');
@@ -87,7 +91,7 @@ export class EditComponent implements OnInit {
   }
 
   nextStep() {
-    window.location.href = '/export';
+    this.router.navigate(['/export']);
   }
 
   setSpeed(speed) {
